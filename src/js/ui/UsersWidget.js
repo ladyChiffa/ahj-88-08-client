@@ -1,3 +1,5 @@
+import {userStorage, messageStorage} from "../repo/Repo";
+
 export default class UsersWidget {
     constructor(container, onSelect) {
         this.container = container;
@@ -21,12 +23,21 @@ export default class UsersWidget {
         const userElement = document.createElement('div');
         userElement.classList.add('chat__user');
         userElement.dataset.id = user.id;
-        userElement.innerText = user.name;
+
+        if(user.id == userStorage.currentUser.id) {
+            userElement.innerText = 'You (' + user.name + ')';
+            userElement.classList.add('chat__user-self');
+        }
+        else {
+            userElement.innerText = user.name;
+        }
         this.usersWidget.appendChild(userElement);
     }
 
     openUserChat(e) {
         const user = e.target.closest('.chat__user');
-        this.onSelect(user.dataset.id);
+        if (user && user.dataset) {
+            this.onSelect(user.dataset.id);
+        }
     }
 }

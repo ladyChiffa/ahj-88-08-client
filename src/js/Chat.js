@@ -70,7 +70,7 @@ export default class Chat {
       const data = JSON.parse(e.data);
       
       if (Array.isArray(data)) {
-        const onlineUsers = data.filter(user => user.name && user.id != userStorage.currentUser.id);
+        const onlineUsers = data.filter(user => user.name);
         userStorage.onlineUsers = onlineUsers;
         this.usersWidget.render(onlineUsers);
       }

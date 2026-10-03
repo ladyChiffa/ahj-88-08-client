@@ -39,6 +39,11 @@ export default class ChatWidget {
             this.container.appendChild(this.chatWidget);
             this.opened = !this.opened;
         }
+
+        console.log(messageStorage);
+        const chatFiltered = messageStorage.data.filter(message => message.toUser.id == userId || message.fromUser.id == userId);
+        console.log(chatFiltered);
+        chatFiltered.forEach(this.render.bind(this));
     }
 
     render(newMessage) {
@@ -48,7 +53,7 @@ export default class ChatWidget {
 
         let userName;
         let messageClass;
-        const timestamp = new Date().toLocaleString('ru-RU');
+        const timestamp = newMessage.timestamp || new Date().toLocaleString('ru-RU');
         if (newMessage.fromUser.id == userStorage.currentUser.id) {
             userName = 'You';
             messageClass = 'message__container-yourself';

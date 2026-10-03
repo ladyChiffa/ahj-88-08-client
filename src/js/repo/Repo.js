@@ -4,8 +4,9 @@ export const userStorage = {
 };
 
 export const messageStorage = {
-    data: {},
-    add : function (){
-
+    data: [],
+    add : function (message){
+        message.timestamp = new Date().toLocaleString('ru-RU');
+        this.data.push(message);
     }
 };
